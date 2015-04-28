@@ -16,6 +16,7 @@
 	  <li><a href = "rush_yards.php">Rushing Metrics</a></li>
 	  <li><a href = "visual.php">Field Visualization</a></li>
 	  <li><a href = "favorite_team.php">Favorite Team Analysis</a></li>
+	  <li><a href = "select.php">Search the Database</a></li>
 	</ul>
       </li>
     </ul>

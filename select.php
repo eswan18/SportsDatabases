@@ -30,44 +30,14 @@ require('navigation.php')
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
 	<?php
-	  $user = "lcronin";
-	  $password = "lcronin";
-	  $connString = "xe";
-	  $conn = oci_connect($user,$password,$connString)
-	    or die ("Failed Connection");
-	  $stid = oci_parse($conn, 'SELECT table_name FROM user_tables');
-	  oci_execute($stid);
 	  
-	  $tablesHtml = "";
 	  echo "Search by team: ";
-	  echo "<form><input type =\"text\" name=\"team_name\" placeholder=\"team name here!!\"> </form>"
-	 /* while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
-	    foreach ($row as $item) {
-	      echo "<td><a class = \"table_selector\" id = \"" . $item . "\">" . $item . "</a></td>";
-	      $tablesHtml .= "<div class=\"panel\" id = \"" . $item . "_table\" style = \"display:none\">";
-	      $tablesHtml .= $item;
-	      $tableQuery = oci_parse($conn, 'SELECT * FROM ' . $item . ' WHERE ROWNUM < 200');
-	      oci_execute($tableQuery);
-	      $tablesHtml .= "<table>";
-	      while ($row2 = oci_fetch_array($tableQuery, OCI_ASSOC+OCI_RETURN_NULLS)) {
-		$trimmedRow = array_slice($row2, 0, 10);
-		foreach ($trimmedRow as $item2)
-		{
-		  $tablesHtml .= "<td>" . $item2 . "</td>";
-		}
-		$tablesHtml .= "<tr>";
-	      }
-	      $tablesHtml .= "</table></div>";
-	    }
-	    echo "<tr>";
-	  }
-	  echo "</table>";*/
+	  echo "<form action=\"select_query.php\" method=\"POST\"><input type =\"text\" name=\"team_name\" placeholder=\"Please enter a team\">";
+	  echo "Search by play description: ";
+	  echo "<input type =\"text\" name=\"play_desc\" placeholder=\"Please enter a play description\">";
+	  echo "<input class=\"small button\" type=\"submit\" name=\"submit1\"> </form>"
 	?>
-	Select one to view its first 10 columns and 200 rows.
       </div>
-      <?php
-	echo $tablesHtml;
-      ?>
     </div>
   </div><script src="bower_components/jquery/dist/jquery.min.js" type=
   "text/javascript">

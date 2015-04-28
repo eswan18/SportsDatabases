@@ -38,7 +38,6 @@ require('navigation.php')
 	  $stid = oci_parse($conn, 'SELECT round(avg(yards),2) as average, round(sum(is_touchdown)/count(pass_type),4)*100 as tdpct, pass_type FROM plays where pass_type is not null group by pass_type order by pass_type');
 	  oci_execute($stid);
 	  
-	  echo "Hello, <i>" . $user . "</i>, welcome to the table interface.<br><br>";
 	  echo "These are the directions you can pass:<br>";
 	  echo "<table style = \"width:100%;\">";
 	  while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
@@ -59,7 +58,7 @@ require('navigation.php')
 </script><script src="bower_components/foundation/js/foundation.min.js"
   type="text/javascript">
 </script><script src="js/app.js" type="text/javascript">
-<script src="js/pass_yards.js" type="text/javascript">
+</script><script src="js/pass_yards.js" type="text/javascript">
 </script>
 </body>
 </html>

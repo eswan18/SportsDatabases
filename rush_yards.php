@@ -37,7 +37,6 @@ require('navigation.php')
 	  $stid = oci_parse($conn, 'SELECT round(avg(yards),2) as average, round(sum(is_touchdown)/count(rush_direction),4)*100 as tdpct, rush_direction FROM plays where rush_direction is not null group by rush_direction order by rush_direction');
 	  oci_execute($stid);
 	  
-	  echo "Hello, <i>" . $user . "</i>, welcome to the table interface.<br><br>";
 	  echo "These are the directions you can rush from:<br>";
 	  echo "<table style = \"width:100%;\">";
 	  while ($row = oci_fetch_array($stid, OCI_ASSOC)) {
