@@ -1,0 +1,2 @@
+select game_id from plays where rush_direction = 'CENTER' and QUARTER = 3 AND DOWN = 4
+/
