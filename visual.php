@@ -29,7 +29,7 @@ require('navigation.php')
   <div class="row">
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
-	<canvas style="border:1px solid #000000;height:100px;width:100px;" class="fgMatt" id="myCanvas">Your Browser Does not Support canvas tag</canvas>
+	<canvas style="border:1px solid #000000; width:600px;" class="fgMatt" id="myCanvas">Your Browser Does not Support canvas tag</canvas>
 	<img src="http://cdn4.colorlib.com/wp/wp-content/uploads/sites/2/2014/02/Olympic-logo.png" alt="footballfield" id="field" style="display:none;height:100px;width:100px;">
 
 	<!-- Slider -->

@@ -1,7 +1,6 @@
 // Connected to visual.php
 $(document).foundation(
 
-
 //{
   //slider: {
     //on_change: function(){
@@ -30,7 +29,6 @@ $(document).foundation(
 var testNum = 0;
 
 $('[data-slider]').on('change.fndtn.slider', function(){
-
 var pos = $('#days-off-count').val();
 
 	testNum++;
@@ -44,15 +42,15 @@ var pos = $('#days-off-count').val();
 	ctx.drawImage(img, 0, 0);
 	
 	ctx.beginPath();
-	ctx.moveTo(pos,0);
-	ctx.lineTo(pos,300);
+	ctx.moveTo((width/10)*(pos/10),0);
+	ctx.lineTo((width/10)*(pos/10),300);
 
 
 	ctx.strokeStyle = '#ff0000';
 
 	ctx.stroke();
 	
- $('#selected_table').html("<p>Count: " +pos +"</p><p>Width: " +width  +"</p>");
+ $('#selected_table').html("<p>Pos: " +pos +"</p><p>Width: " +width  +"</p><p>Calculation: " +((width/10)*(pos/10)) +"</p>");
  $('#selected_table').show();
 
 
