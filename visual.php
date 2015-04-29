@@ -33,10 +33,10 @@ require('navigation.php')
 	<form action="visual_results.php" method="post">
 	<canvas style="width:100%;" id="myCanvas">Your Browser Does not Support canvas tag</canvas>
 
-	<!-- Slider -->
+	<!-- Slider 1 -->
 	<div class="row">
 	  <div class="small-10 columns">
-	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count; initial: 28;">
+	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count; initial: 28;" name="slider1">
 	      <span class="range-slider-handle" role="slider" tabindex="0"></span>
 	      <span class="range-slider-active-segment"></span>
 	    </div>
@@ -46,6 +46,18 @@ require('navigation.php')
 	  </div>
 	</div>
 
+	<!-- Slider 2 -->
+	<div class="row">
+	  <div class="small-10 columns">
+	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count2; initial: 28;" name="slider2">
+	      <span class="range-slider-handle" role="slider" tabindex="0"></span>
+	      <span class="range-slider-active-segment"></span>
+	    </div>
+	  </div>
+	  <div class="small-2 columns">
+	    <input type="number" id="days-off-count2" name="yards" value="28" />
+	  </div>
+	</div>
 	
 		<input type="hidden" name="yards2" value="hello" />
 		<input class="small button" type="submit" name="submit1" />

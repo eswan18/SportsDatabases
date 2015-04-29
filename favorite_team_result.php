@@ -15,15 +15,51 @@
 
   <body>
   <?php
+    #Receive variables passed in:
     $user_pass = $_POST['run_pass'];
     $user_run = 100 - $user_pass;
     $user_off = $_POST['def_off'];
     $user_def = 100 - $user_off;
     $user_win = $_POST['win'];
+
+    #Rank teams and find best fit:
+    #Connect:
+    $user = "lcronin";
+    $password = "lcronin";
+    $conn_string = "xe";
+    $conn = oci_connect($user,$password,$conn_string)
+      or die ("Failed Connection");
+
+    $query_string = "Select P.OFFENSE_TEAM as TEAM, PASS_COUNT, RUSH_COUNT
+      from (
+	Select OFFENSE_TEAM, count(*) as PASS_COUNT
+	from plays
+	where IS_PASS = 1
+	group by OFFENSE_TEAM
+      ) P
+      inner join (
+	Select OFFENSE_TEAM, count(*) as RUSH_COUNT
+	from plays
+	where IS_RUSH = 1
+	group by OFFENSE_TEAM
+      ) R
+      on P.OFFENSE_TEAM = R.OFFENSE_TEAM"; 
+    $query = oci_parse($conn,$query_string);
+    oci_execute($query);
+
+    while (oci_fetch($query)) {
+      echo oci_result($query,'TEAM') . ": ";
+      echo oci_result($query,'RUSH_COUNT') . " rushes, ";
+      echo oci_result($query,'PASS_COUNT') . " passes.<br>";
+    }
+
+    #Create variables to display to user:
     $team = "Miami Dolphins";
-    $team_run_pass = 100;
-    $team_def_off = 100;
+    $team_pass = 100;
+    $team_off = 100;
     $team_win = 100;
+    $team_run = 100 - $team_pass;
+    $team_def = 100 - $team_off;
   ?>
     <div class="row">
       <div class="large-12 columns">
@@ -45,17 +81,17 @@
           <div class="row" style="text-align:center;">
             <div class="large-4 columns">
               <?php
-		echo "Run/Pass<br><h4>" . $team_run_pass . "</h4>";
+		echo "Run/Pass Ratio<br><h4>" . $team_run . ":" . $team_pass . "</h4>";
 	      ?>
             </div>
             <div class="large-4 columns">
               <?php
-		echo "Defense vs Offense Focus<br><h4>" . $team_def . ":" . $team_off . "</h4>";
+		echo "Defensive/Offensive Focus<br><h4>" . $team_def . ":" . $team_off . "</h4>";
 	      ?>
             </div>
             <div class="large-4 columns">
               <?php
-		echo "Win Percentage<br><h4>" . $team_win . "</h4>";
+		echo "Win Percentage<br><h4>" . $team_win . "%</h4>";
 	      ?>
             </div>
           </div>
@@ -67,12 +103,12 @@
           <div class="row" style="text-align:center;">
             <div class="large-4 columns">
               <?php
-		echo "Run:Pass Ratio<br><h4>" . $user_run . ":" . $user_pass . "</h4>";
+		echo "Run/Pass Ratio<br><h4>" . $user_run . ":" . $user_pass . "</h4>";
 	      ?>
             </div>
             <div class="large-4 columns">
               <?php
-		echo "Defensive:Offensive Focus<br><h4>" . $user_def . ":" . $user_off . "</h4>";
+		echo "Defensive/Offensive Focus<br><h4>" . $user_def . ":" . $user_off . "</h4>";
 	      ?>
             </div>
             <div class="large-4 columns">

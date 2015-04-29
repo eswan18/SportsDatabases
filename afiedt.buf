@@ -1,2 +1,15 @@
-select game_id from plays where rush_direction = 'CENTER' and QUARTER = 3 AND DOWN = 4
+Select *
+      from (
+        Select OFFENSE_TEAM, count(*) as PASS_COUNT
+        from plays
+        where IS_PASS = 1
+        group by OFFENSE_TEAM
+      ) P
+      inner join (
+        Select OFFENSE_TEAM, count(*) as RUSH_COUNT
+        from plays
+        where IS_RUSH = 1
+        group by OFFENSE_TEAM
+      ) R
+      on P.OFFENSE_TEAM = R.OFFENSE_TEAM
 /

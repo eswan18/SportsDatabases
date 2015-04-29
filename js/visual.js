@@ -54,8 +54,10 @@ c.height = scale*c.width;
 	ctx.strokeStyle = '#ff0000';
 	ctx.stroke();
 	
- $('#selected_table').html("<p>Pos: " +pos +"</p><p>Width: " +c.width  +"</p><p>Calculation: " +(30+(c.width/12.5)*(pos/10)) +"</p>");
+ $('#selected_table').html("<p>Pos: " +pos +"</p><p>Width: " +c.width  +"</p><p>Calculation: " +(30+(c.width/12.5)*(pos/10)) +"</p><p>" +$(this).attr('name') +"</p>");
  $('#selected_table').show();
 
 
 });
+
+
