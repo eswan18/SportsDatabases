@@ -58,17 +58,36 @@
       order by TOTAL_DIF asc, WIN_DIF asc";
     $query = oci_parse($conn,$query_string);
     oci_execute($query);
+    $teams_table = "<table>";
+    $teams_table .= "<tr><td><b>Team</b></td><td><b>Run/Pass Ratio</b></td><td><b>Run/Pass Difference</b></td><td><b>Def/Off Focus</b></td><td><b>Def/Off Difference</b></td><td><b>Win Percentage</b></td><td><b>Win Difference</b></td><td><b>Total Difference</b></td><td><b>Match Percentage</b></td></tr>";
+    $count = 0;
     while (oci_fetch($query)) {
-      $team = oci_result($query,'CITY') . " " . oci_result($query,'NICKNAME');
-      #echo $team . ":<br>";
-      #echo oci_result($query,'PASS_PCT') . "% rushes. ";
-      #echo oci_result($query,'WIN_PCT') . "% winning. ";
-      #echo oci_result($query,'OFF_FOCUS') . "% offense. <br>";
-      #echo "Difference between expected and actual offense: " . oci_result($query,'OFF_DIF') . " <br>";
-      #echo "Difference between expected and actual winning: " . oci_result($query,'WIN_DIF') . " <br>";
-      #echo "Difference between expected and actual passing: " . oci_result($query,'PASS_DIF') . " <br>";
-      #echo "Total difference: " . oci_result($query,'TOTAL_DIF') . " <br><br>";
+      if ($count <= 5) {
+	$team = oci_result($query,'CITY') . " " . oci_result($query,'NICKNAME');
+	$pass_pct = oci_result($query,'PASS_PCT');
+	$run_pct = 100 - $pass_pct;
+	$pass_dif = oci_result($query,'PASS_DIF');
+	$off_focus = oci_result($query,'OFF_FOCUS');
+	$def_focus = 100 - $off_focus;
+	$off_dif = oci_result($query,'OFF_DIF');
+	$win_pct = oci_result($query,'WIN_PCT');
+	$win_dif = oci_result($query,'WIN_DIF');
+	$total_dif = oci_result($query,'TOTAL_DIF');
+	$pct_similar = round((1 - $total_dif / 150) * 100, 2);
+	$teams_table .= "<tr><td>" . $team . "</td>";
+	$teams_table .= "<td>" . $run_pct . ":" . $pass_pct . "</td>";
+	$teams_table .= "<td>" . $pass_dif . "</td>";
+	$teams_table .= "<td>" . $def_focus . ":" . $off_focus . "</td>";
+	$teams_table .= "<td>" . $off_dif . "</td>";
+	$teams_table .= "<td>" . $win_pct . "%</td>";
+	$teams_table .= "<td>" . $win_dif . "%</td>";
+	$teams_table .= "<td>" . $total_dif . "</td>";
+	$teams_table .= "<td>" . $pct_similar . "%</td>";
+	$teams_table .= "</tr>\n";
+      }
+      $count++;
     }
+    $teams_table .= "</table>";
 
     #Run the query again, this time getting only the first row
     #(in order to fetch the best-fit team):
@@ -141,7 +160,10 @@
       </div>
       <div class="large-12 columns">
 	<div class="panel" id="panel3">
-	  <center><h3>Like I said, blahs</h3></center>
+	  <center><h3>Top 5 Teams for You</h3></center><br>
+	  <?php
+	    echo $teams_table;
+	  ?>
 	</div>
       </div>
     </div>
