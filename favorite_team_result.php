@@ -30,27 +30,31 @@
     $conn = oci_connect($user,$password,$conn_string)
       or die ("Failed Connection");
 
-    $query_string = "Select P.OFFENSE_TEAM as TEAM, PASS_COUNT, RUSH_COUNT
+    $query_string = "Select P.OFFENSE_TEAM as TEAM, round((RUSH_COUNT/(PASS_COUNT+RUSH_COUNT)*100)) as RUSH_PCT, round((WIN/(LOSE+WIN))*100) as WIN_PCT, round(((OFFENSE_RANK-DEFENSE_RANK)/32*50)+50) as OFF_FOCUS
       from (
 	Select OFFENSE_TEAM, count(*) as PASS_COUNT
 	from plays
 	where IS_PASS = 1
 	group by OFFENSE_TEAM
-      ) P
-      inner join (
+      ) P,
+      (
 	Select OFFENSE_TEAM, count(*) as RUSH_COUNT
 	from plays
 	where IS_RUSH = 1
 	group by OFFENSE_TEAM
-      ) R
-      on P.OFFENSE_TEAM = R.OFFENSE_TEAM"; 
+      ) R,
+      teams T, team_efficiency TE
+      where P.OFFENSE_TEAM = R.OFFENSE_TEAM
+      and T.TEAM_NAME = P.OFFENSE_TEAM
+      and T.TEAM_NAME = TE.TEAM"; 
     $query = oci_parse($conn,$query_string);
     oci_execute($query);
 
     while (oci_fetch($query)) {
       echo oci_result($query,'TEAM') . ": ";
-      echo oci_result($query,'RUSH_COUNT') . " rushes, ";
-      echo oci_result($query,'PASS_COUNT') . " passes.<br>";
+      echo oci_result($query,'RUSH_PCT') . "% rushes. ";
+      echo oci_result($query,'WIN_PCT') . "% winning. ";
+      echo oci_result($query,'OFF_FOCUS') . "% offense. <br>";
     }
 
     #Create variables to display to user:

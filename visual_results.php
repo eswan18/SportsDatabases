@@ -38,10 +38,21 @@ require('navigation.php')
 		$conn = oci_connect($user, $password, $connString)
 			or die ("Failed Connection");		
 
-		$yards = $_POST['yards'];
+		$yards1 = $_POST['yards1'];
+		$yards2 = $_POST['yards2'];
+
+		$yards1 = intval($yards1);
+		$yards2 = intval($yards2);
+
 		
-		$yardsLo = intval($yards)-4;
-		$yardsHi = intval($yards)+5;
+		if ($yards1 < $yards2) {
+			$yardsLo = $yards1;
+			$yardsHi = $yards2;
+		}
+		else {
+			$yardsLo = $yards2;
+			$yardsHi = $yards1;
+		}
 
 		$stmt = 'select unique yards from plays where yards >= ' .$yardsLo. ' and yards <= ' .$yardsHi. ' order by 1';
 
@@ -53,7 +64,7 @@ require('navigation.php')
 		}
 
 		echo "<p>Query: " .$stmt. "</p>";
-		echo "<p>Yards selected: " .$yards. "</p>";
+		echo "<p>Yards selected:</p><p>High: " .$yardsHi. "</p><p>Low: " .$yardsLo. "</p>";
 	?>
       </div>
 

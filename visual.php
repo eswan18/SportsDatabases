@@ -36,13 +36,13 @@ require('navigation.php')
 	<!-- Slider 1 -->
 	<div class="row">
 	  <div class="small-10 columns">
-	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count; initial: 28;" name="slider1">
+	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count1; initial: 28;" name="slider1">
 	      <span class="range-slider-handle" role="slider" tabindex="0"></span>
 	      <span class="range-slider-active-segment"></span>
 	    </div>
 	  </div>
 	  <div class="small-2 columns">
-	    <input type="number" id="days-off-count" name="yards" value="28" />
+	    <input type="number" id="days-off-count1" name="yards1" value="28" />
 	  </div>
 	</div>
 
@@ -55,11 +55,11 @@ require('navigation.php')
 	    </div>
 	  </div>
 	  <div class="small-2 columns">
-	    <input type="number" id="days-off-count2" name="yards" value="28" />
+	    <input type="number" id="days-off-count2" name="yards2" value="28" />
 	  </div>
 	</div>
 	
-		<input type="hidden" name="yards2" value="hello" />
+<!--		<input type="hidden" name="yards2" value="hello" /> -->
 		<input class="small button" type="submit" name="submit1" />
 	</form>
 <!-- End Form -->

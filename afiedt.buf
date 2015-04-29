@@ -1,15 +1,2 @@
-Select *
-      from (
-        Select OFFENSE_TEAM, count(*) as PASS_COUNT
-        from plays
-        where IS_PASS = 1
-        group by OFFENSE_TEAM
-      ) P
-      inner join (
-        Select OFFENSE_TEAM, count(*) as RUSH_COUNT
-        from plays
-        where IS_RUSH = 1
-        group by OFFENSE_TEAM
-      ) R
-      on P.OFFENSE_TEAM = R.OFFENSE_TEAM
+select team, defense_rank, offense_rank, ((defense_rank-offense_rank)/32*50)+50 from team_efficiency
 /

@@ -29,10 +29,11 @@ $(document).foundation(
 var testNum = 0;
 
 $('[data-slider]').on('change.fndtn.slider', function(){
-var pos = $('#days-off-count').val();
+var pos1 = $('#days-off-count1').val();
+var pos2 = $('#days-off-count2').val();
 var img = new Image();
 
-img.src = "http://www.wpclipart.com/recreation/sports/football/football_2/football_field.png";//"http://www.conceptdraw.com/solution-park/resource/images/solutions/football/Sport-Football-Horizontal-colored-football-field-Template.png";
+img.src = "http://www.wpclipart.com/recreation/sports/football/football_2/football_field.png";
 
 var scale = img.height/img.width;	
 
@@ -47,14 +48,23 @@ c.height = scale*c.width;
 			   0, 0, c.width, c.height);
 	
 	ctx.beginPath();
-	ctx.moveTo(30+(c.width/12.5)*(pos/10),0);
-	ctx.lineTo(30+(c.width/12.5)*(pos/10),c.height);
+	ctx.moveTo(30+(c.width/12.5)*(pos1/10),0);
+	ctx.lineTo(30+(c.width/12.5)*(pos1/10),c.height);
 	ctx.lineWidth = 2;
 
 	ctx.strokeStyle = '#ff0000';
 	ctx.stroke();
+
+	ctx.beginPath();
+	ctx.moveTo(30+(c.width/12.5)*(pos2/10),0);
+	ctx.lineTo(30+(c.width/12.5)*(pos2/10),c.height);
+	ctx.lineWidth = 2;
+
+	ctx.strokeStyle = '#00008B';
+	ctx.stroke();
+
 	
- $('#selected_table').html("<p>Pos: " +pos +"</p><p>Width: " +c.width  +"</p><p>Calculation: " +(30+(c.width/12.5)*(pos/10)) +"</p><p>" +$(this).attr('name') +"</p>");
+ $('#selected_table').html("<p>Pos: " +pos1 +"</p><p>Width: " +c.width  +"</p><p>Calculation: " +(30+(c.width/12.5)*(pos1/10)) +"</p><p>" +$(this).attr('name') +"</p>");
  $('#selected_table').show();
 
 
