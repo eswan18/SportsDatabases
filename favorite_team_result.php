@@ -30,7 +30,7 @@
     $conn = oci_connect($user,$password,$conn_string)
       or die ("Failed Connection");
 
-    $query_string = "Select P.OFFENSE_TEAM as TEAM, round((RUSH_COUNT/(PASS_COUNT+RUSH_COUNT)*100)) as RUSH_PCT, round((WIN/(LOSE+WIN))*100) as WIN_PCT, round(((OFFENSE_RANK-DEFENSE_RANK)/32*50)+50) as OFF_FOCUS
+    $query_string = "Select P.OFFENSE_TEAM as TEAM, round((PASS_COUNT/(PASS_COUNT+RUSH_COUNT)*100)) as PASS_PCT, round((WIN/(LOSE+WIN))*100) as WIN_PCT, round(((DEFENSE_RANK-OFFENSE_RANK)/32*50)+50) as OFF_FOCUS
       from (
 	Select OFFENSE_TEAM, count(*) as PASS_COUNT
 	from plays
@@ -52,9 +52,49 @@
 
     while (oci_fetch($query)) {
       echo oci_result($query,'TEAM') . ": ";
-      echo oci_result($query,'RUSH_PCT') . "% rushes. ";
+      echo oci_result($query,'PASS_PCT') . "% rushes. ";
       echo oci_result($query,'WIN_PCT') . "% winning. ";
       echo oci_result($query,'OFF_FOCUS') . "% offense. <br>";
+    }
+
+    $query_string = "Select PASS_DIF, OFF_DIF, WIN_DIF, TEAM, abs(PASS_DIF)+abs(OFF_DIF)+abs(WIN_DIF) as TOTAL_DIF from
+      (
+	Select PASS_PCT-" . $user_pass . " as PASS_DIF, TEAM, "
+	. "OFF_FOCUS-" . $user_off . " as OFF_DIF, "
+	. "WIN_PCT-" . $user_win . " as WIN_DIF
+	from (
+	  Select P.OFFENSE_TEAM as TEAM, round((PASS_COUNT/(PASS_COUNT+RUSH_COUNT)*100)) as PASS_PCT, round((WIN/(LOSE+WIN))*100) as WIN_PCT, round(((DEFENSE_RANK-OFFENSE_RANK)/32*50)+50) as OFF_FOCUS
+	  from (
+	    Select OFFENSE_TEAM, count(*) as PASS_COUNT
+	    from plays
+	    where IS_PASS = 1
+	    group by OFFENSE_TEAM
+	  ) P,
+	  (
+	    Select OFFENSE_TEAM, count(*) as RUSH_COUNT
+	    from plays
+	    where IS_RUSH = 1
+	    group by OFFENSE_TEAM
+	  ) R,
+	  teams T, team_efficiency TE
+	  where P.OFFENSE_TEAM = R.OFFENSE_TEAM
+	  and T.TEAM_NAME = P.OFFENSE_TEAM
+	  and T.TEAM_NAME = TE.TEAM
+	)
+      )
+      order by TOTAL_DIF asc";
+    $query = oci_parse($conn,$query_string);
+    oci_execute($query);
+
+    while (oci_fetch($query)) {
+      echo oci_result($query,'TEAM') . ":<br>";
+      #echo oci_result($query,'PASS_PCT') . "% rushes. ";
+      #echo oci_result($query,'WIN_PCT') . "% winning. ";
+      #echo oci_result($query,'OFF_FOCUS') . "% offense. <br>";
+      echo "Difference between expected and actual offense: " . oci_result($query,'OFF_DIF') . " <br>";
+      echo "Difference between expected and actual winning: " . oci_result($query,'WIN_DIF') . " <br>";
+      echo "Difference between expected and actual passing: " . oci_result($query,'PASS_DIF') . " <br>";
+      echo "Total difference: " . oci_result($query,'TOTAL_DIF') . " <br><br>";
     }
 
     #Create variables to display to user:
