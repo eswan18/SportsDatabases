@@ -22,14 +22,24 @@
     $user_def = 100 - $user_off;
     $user_win = $_POST['win'];
 
-    #Rank teams and find best fit:
-    #Connect:
+    #Connect to sql:
     $user = "lcronin";
     $password = "lcronin";
     $conn_string = "xe";
     $conn = oci_connect($user,$password,$conn_string)
       or die ("Failed Connection");
 
+    #This particular beauty of a query combines the team info table, the
+    #the team efficiency table, and the plays table to create a table of
+    #Team Name, Total Passes, Total Rushes, Offensive Rank, Defensive Rank,
+    #Wins, and Losses. Then that table is transformed into a table that
+    #contains Pass Percentage (passes/(rushes+passes)), Offensive Focus
+    #((defenseRank-offenseRank)/32*50), Win Percentage (win/(lose+win)),
+    #City, and Nickname. Then this new table is compared to the user's
+    #stated preferences for Pass Percentage, Offensive Focus, and Win
+    #Percentage - so it now contains both those stats and the difference
+    #between those and the the user's preferences.
+    #Unfortunately, it's virtually indecipherable - the beauty of sql.
     $query_string = "Select PASS_DIF, OFF_DIF, WIN_DIF, TEAM, abs(PASS_DIF)+abs(OFF_DIF)+abs(WIN_DIF) as TOTAL_DIF, CITY, NICKNAME, PASS_PCT, OFF_FOCUS, WIN_PCT from
       (
 	Select PASS_PCT-" . $user_pass . " as PASS_DIF, TEAM, CITY, NICKNAME, PASS_PCT, OFF_FOCUS, WIN_PCT, "
@@ -58,11 +68,13 @@
       order by TOTAL_DIF asc, WIN_DIF asc";
     $query = oci_parse($conn,$query_string);
     oci_execute($query);
+
+    #Create the table containing the top 5 teams for the user:
     $teams_table = "<table>";
     $teams_table .= "<tr><td><b>Team</b></td><td><b>Run/Pass Ratio</b></td><td><b>Run/Pass Difference</b></td><td><b>Def/Off Focus</b></td><td><b>Def/Off Difference</b></td><td><b>Win Percentage</b></td><td><b>Win Difference</b></td><td><b>Total Difference</b></td><td><b>Match Percentage</b></td></tr>";
     $count = 0;
     while (oci_fetch($query)) {
-      if ($count <= 5) {
+      if ($count <= 4) {
 	$team = oci_result($query,'CITY') . " " . oci_result($query,'NICKNAME');
 	$pass_pct = oci_result($query,'PASS_PCT');
 	$run_pct = 100 - $pass_pct;

@@ -44,7 +44,7 @@ require('navigation.php')
 	</div>
       </div>
       <div class="panel" id="panel2">
-        <center><h3>Defensively/Offensively Focused</h3></center>
+        <center><h3>Defensive/Offensive Focused</h3></center>
 	<div class="row">
 	  <div class="large-1 column"><br>Defense</div>
 	  <div class="large-10 column">
