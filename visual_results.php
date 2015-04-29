@@ -29,30 +29,36 @@ require('navigation.php')
   <div class="row">
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
-<!-- Begin Form -->
-	<form action="visual_results.php" method="post">
-	<canvas style="width:100%;" id="myCanvas">Your Browser Does not Support canvas tag</canvas>
+	<p>Place main text here</p>
+	<?php
+		$user = "lcronin";
+		$password = "lcronin";
+		$connString = "xe";
 
-	<!-- Slider -->
-	<div class="row">
-	  <div class="small-10 columns">
-	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count; initial: 28;">
-	      <span class="range-slider-handle" role="slider" tabindex="0"></span>
-	      <span class="range-slider-active-segment"></span>
-	    </div>
-	  </div>
-	  <div class="small-2 columns">
-	    <input type="number" id="days-off-count" name="yards" value="28" />
-	  </div>
-	</div>
+		$conn = oci_connect($user, $password, $connString)
+			or die ("Failed Connection");		
 
-	
-		<input type="hidden" name="yards2" value="hello" />
-		<input class="small button" type="submit" name="submit1" />
-	</form>
-<!-- End Form -->
+		$yards = $_POST['yards'];
+		
+		$yardsLo = intval($yards)-4;
+		$yardsHi = intval($yards)+5;
+
+		$stmt = 'select unique yards from plays where yards >= ' .$yardsLo. ' and yards <= ' .$yardsHi. ' order by 1';
+
+		$query = oci_parse($conn, $stmt);
+		oci_execute($query);
+
+		while($row=oci_fetch_array($query)) {
+			print "<p>$row[0]</p>";
+		}
+
+		echo "<p>Query: " .$stmt. "</p>";
+		echo "<p>Yards selected: " .$yards. "</p>";
+	?>
       </div>
-      <div class="panel" id = "selected_table" style = "display:none"> 	
+
+      <div class="panel" id = "selected_table"> 	
+	<p>Yards To Score:</p>
       </div>
     </div>
   </div>

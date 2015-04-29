@@ -30,27 +30,31 @@ var testNum = 0;
 
 $('[data-slider]').on('change.fndtn.slider', function(){
 var pos = $('#days-off-count').val();
+var img = new Image();
+
+img.src = "http://www.wpclipart.com/recreation/sports/football/football_2/football_field.png";//"http://www.conceptdraw.com/solution-park/resource/images/solutions/football/Sport-Football-Horizontal-colored-football-field-Template.png";
+
+var scale = img.height/img.width;	
 
 	testNum++;
 	var c = document.getElementById("myCanvas");
-	var width = c.offsetWidth;
-	var height = c.offsetHeight;
 	var ctx = c.getContext("2d");
 
+c.height = scale*c.width;
+
 	ctx.clearRect(0, 0, c.width, c.height);
-	var img = document.getElementById("field");
-	ctx.drawImage(img, 0, 0);
+	ctx.drawImage(img, 0, 0, img.width, img.height,
+			   0, 0, c.width, c.height);
 	
 	ctx.beginPath();
-	ctx.moveTo((width/10)*(pos/10),0);
-	ctx.lineTo((width/10)*(pos/10),300);
-
+	ctx.moveTo(30+(c.width/12.5)*(pos/10),0);
+	ctx.lineTo(30+(c.width/12.5)*(pos/10),c.height);
+	ctx.lineWidth = 2;
 
 	ctx.strokeStyle = '#ff0000';
-
 	ctx.stroke();
 	
- $('#selected_table').html("<p>Pos: " +pos +"</p><p>Width: " +width  +"</p><p>Calculation: " +((width/10)*(pos/10)) +"</p>");
+ $('#selected_table').html("<p>Pos: " +pos +"</p><p>Width: " +c.width  +"</p><p>Calculation: " +(30+(c.width/12.5)*(pos/10)) +"</p>");
  $('#selected_table').show();
 
 

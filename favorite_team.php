@@ -30,7 +30,7 @@ require('navigation.php')
   <div class="row">
     <div class="large-12 columns">
       <div class="panel" id="panel1">
-        <h3>Run/Pass Ratio</h3>
+        <center><h3>Run/Pass Ratio</h3></center>
 	<div class="row">
 	  <div class="large-1 column">Only Run</div>
 	  <div class="large-10 column">
@@ -44,7 +44,7 @@ require('navigation.php')
 	</div>
       </div>
       <div class="panel" id="panel2">
-        <h3>Defensively/Offensively Focused</h3>
+        <center><h3>Defensively/Offensively Focused</h3></center>
 	<div class="row">
 	  <div class="large-1 column"><br>Defense</div>
 	  <div class="large-10 column">
@@ -58,7 +58,7 @@ require('navigation.php')
 	</div>
       </div>
       <div class="panel" id="panel3">
-        <h3>Win Percentage</h3>
+        <center><h3>Win Percentage</h3></center>
 	<div class="row">
 	  <div class="large-1 column"><br>Never</div>
 	  <div class="large-10 column">
@@ -72,7 +72,7 @@ require('navigation.php')
 	</div>
       </div>
 
-      <center><a class="large button">Find My Team!</a></center>
+      <center><a class="large button" id="find_team_button">Find My Team!</a></center>
     </div>
   </div><script src="bower_components/jquery/dist/jquery.min.js" type=
   "text/javascript">

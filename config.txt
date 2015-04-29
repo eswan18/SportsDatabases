@@ -1,7 +1,8 @@
 // sample config file for HTML tidy
-indent: auto
+indent: yes 
 indent-spaces: 2
-wrap: 72
+wrap-php: no
+wrap: 0
 markup: yes
 output-xml: no
 input-xml: no
@@ -14,9 +15,3 @@ break-before-br: no
 uppercase-tags: no
 uppercase-attributes: no
 char-encoding: latin1
-new-inline-tags: cfif, cfelse, math, mroot, 
-  mrow, mi, mn, mo, msqrt, mfrac, msubsup, munderover,
-  munder, mover, mmultiscripts, msup, msub, mtext,
-  mprescripts, mtable, mtr, mtd, mth
-new-blocklevel-tags: cfoutput, cfquery
-new-empty-tags: cfelse
