@@ -66,17 +66,11 @@ require('navigation.php')
 		$query = oci_parse($conn, $stmtFgTotal);
 		oci_execute($query);
 
-		$result = oci_fetch_array($query);
-		$fgTotal[0] = $result[1];
-
-		$result = oci_fetch_array($query);
-		$fgTotal[1] = $result[1];
-		
-		$result = oci_fetch_array($query);
-		$fgTotal[2] = $result[1];
-		
-		$result = oci_fetch_array($query);
-		$fgTotal[3] = $result[1];
+		$i;
+		for($i = 0; $i < 4; $i++) {
+			$result = oci_fetch_array($query);
+			$fgTotal[$i] = $result[1];
+		}		
 
 		# -- Field Goals Made -- #
 		$stmtFgMade = 'select down, count(*)
@@ -90,18 +84,10 @@ require('navigation.php')
 		$query = oci_parse($conn, $stmtFgMade);
 		oci_execute($query);
 
-		$result = oci_fetch_array($query);
-		$fgMade[0] = $result[1];
-
-		$result = oci_fetch_array($query);
-		$fgMade[1] = $result[1];
-	
-		$result = oci_fetch_array($query);
-		$fgMade[2] = $result[1];
-	
-		$result = oci_fetch_array($query);
-		$fgMade[3] = $result[1];
-
+		for($i = 0; $i < 4; $i++) {
+			$result = oci_fetch_array($query);
+			$fgMade[$i] = $result[1];
+		}
 
 		# -- Play Totals -- #
 		$stmtTdTotal = 'select down, sum(is_touchdown), sum(is_pass), sum(is_rush), count(*)
@@ -113,7 +99,6 @@ require('navigation.php')
 		$query = oci_parse($conn, $stmtTdTotal);
 		oci_execute($query);
 
-		$i;
 		for($i = 0; $i < 4; $i++) {
 			$result = oci_fetch_array($query);
 			$tdTotal[$i] = $result[1];
@@ -123,7 +108,6 @@ require('navigation.php')
 		}
 	
 		# -- Percentage Total -- #
-
 		for($i = 0; $i < 4; $i++) {
 			$passPct[$i] = 0;
 			$rushPct[$i] = 0;
@@ -157,6 +141,7 @@ require('navigation.php')
 		}
 	?>
       </div>
+      <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
   </div>
   <script src="bower_components/jquery/dist/jquery.min.js" type= "text/javascript"></script>

@@ -36,7 +36,7 @@ require('navigation.php')
 	<!-- Slider 1 -->
 	<div class="row">
 	  <div class="small-10 columns">
-	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count1; initial: 30;" name="slider1">
+	    <div class="range-slider" data-slider data-options="display_selector: #days-off-count1; initial: 30; start: 1; end:99;" name="slider1">
 	      <span class="range-slider-handle" role="slider" tabindex="0"></span>
 	      <span class="range-slider-active-segment"></span>
 	    </div>

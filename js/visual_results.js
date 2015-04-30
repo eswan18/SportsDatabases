@@ -6,13 +6,13 @@ $(function () {
 	var res1 = pct1.split(":");
 
 	var pct2 = $('#percentages1').val();
-	var res2 = pct1.split(":");
+	var res2 = pct2.split(":");
 
 	var pct3 = $('#percentages2').val();
-	var res3 = pct1.split(":");
+	var res3 = pct3.split(":");
 
 	var pct4 = $('#percentages3').val();
-	var res4 = pct1.split(":");
+	var res4 = pct4.split(":");
 
 
 	var startPos = 'Own'
@@ -40,76 +40,13 @@ $(function () {
 		subText = 'Plays between ' +startPos +' ' +res1[6] +' and ' +endPos +' ' +res1[7] 
 	}
 
-// Make monochrome colors and set them as default for all pies
-Highcharts.getOptions().plotOptions.pie.colors = (function () {
-	var colors = [],
-        base = Highcharts.getOptions().colors[0],
-        i;
-
-        for (i = 0; i < 10; i += 1) {
-        // Start out with a darkened base color (negative brighten), and end
-        // up with a much brighter color
-        	colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
-        }
-        return colors;
-}());
-
-// --- Here --- //
-/*
-    $('#container').highcharts({
-	chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'Field Break Down'
-        },
-        subtitle: {
-            text: subText
-	},
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: [
-                ['Pass',   parseFloat(res1[0])],
-                ['Rush',   parseFloat(res1[1])],
-		{
-			name: 'Other',
-			y: parseFloat(res1[3]),
-			sliced: true,
-			select: true
-		},
-                ['FG',     parseFloat(res1[2])]
-            ]
-        }]
-    });*/
-// -- End --- //
-
-
-
+// -- Column Graph -- //
     $('#container').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Field Break Down'
+            text: 'Field Statistics By Down'
         },
         subtitle: {
             text: subText
@@ -127,8 +64,9 @@ Highcharts.getOptions().plotOptions.pie.colors = (function () {
         },
         yAxis: {
             min: 0,
+	    max: 100,
             title: {
-                text: 'Occurence (%)'
+                text: 'Occurance (%)'
             }
         },
         tooltip: {
@@ -146,9 +84,131 @@ Highcharts.getOptions().plotOptions.pie.colors = (function () {
             }
         },
         series: [{
-            name: 'Breakdown',
+            name: 'First Down',
 	    data: [parseFloat(res1[0]),parseFloat(res1[1]),parseFloat(res1[2]),parseFloat(res1[3]),parseFloat(res1[5]),parseFloat(res1[4])]
+	  },{
+	    name: 'Second Down',
+	    data: [parseFloat(res2[0]),parseFloat(res2[1]),parseFloat(res2[2]),parseFloat(res2[3]),parseFloat(res2[5]),parseFloat(res2[4])]
+	  },{
+	    name: 'Third Down',
+	    data: [parseFloat(res3[0]),parseFloat(res3[1]),parseFloat(res3[2]),parseFloat(res3[3]),parseFloat(res3[5]),parseFloat(res3[4])]
+	  },{
+	    name: 'Fourth Down',
+	    data: [parseFloat(res4[0]),parseFloat(res4[1]),parseFloat(res4[2]),parseFloat(res4[3]),parseFloat(res4[5]),parseFloat(res4[4])]
 	}]
+    });
+
+// -- Donut Graph -- //
+var colors = Highcharts.getOptions().colors,
+        categories = ['Pass', 'Rush', 'Field Goal', 'Other'],
+        data = [{
+            y: Math.round((parseFloat(res1[0]) + parseFloat(res2[0]) + parseFloat(res3[0]) + parseFloat(res4[0]))/4*100)/100,
+            color: colors[0],
+            drilldown: {
+                name: 'Pass Downs',
+                categories: ['First', 'Second', 'Third', 'Fourth'],
+                data: [Math.round(parseFloat(res1[0])/4*100)/100, Math.round(parseFloat(res2[0])/4*100)/100, Math.round(parseFloat(res3[0])/4*100)/100, Math.round(parseFloat(res4[0])/4*100)/100],
+                color: colors[0]
+            }
+        }, {
+            y: Math.round((parseFloat(res1[1]) + parseFloat(res2[1]) + parseFloat(res3[1]) + parseFloat(res4[1]))/4*100)/100,
+            color: colors[1],
+            drilldown: {
+                name: 'Rush Downs',
+                categories: ['First', 'Second', 'Third', 'Fourth'],
+                data: [Math.round(parseFloat(res1[1])/4*100)/100, Math.round(parseFloat(res2[1])/4*100)/100, Math.round(parseFloat(res3[1])/4*100)/100, Math.round(parseFloat(res4[1])/4*100)/100],
+                color: colors[1]
+            }
+        }, {
+            y: Math.round((parseFloat(res1[2]) + parseFloat(res2[2]) + parseFloat(res3[2]) + parseFloat(res4[2]))/4*100)/100,
+            color: colors[2],
+            drilldown: {
+                name: 'Field Goal Downs',
+                categories: ['First', 'Second', 'Third', 'Fourth'],
+                data: [Math.round(parseFloat(res1[2])/4*100)/100, Math.round(parseFloat(res2[2])/4*100)/100, Math.round(parseFloat(res3[2])/4*100)/100, Math.round(parseFloat(res4[2])/4*100)/100],
+                color: colors[2]
+            }
+        }, {
+            y: Math.round((parseFloat(res1[3]) + parseFloat(res2[3]) + parseFloat(res3[3]) + parseFloat(res4[3]))/4*100)/100,
+            color: colors[3],
+            drilldown: {
+                name: 'Other Downs',
+                categories: ['First', 'Second', 'Third', 'Fourth'],
+                data: [Math.round(parseFloat(res1[3])/4*100)/100, Math.round(parseFloat(res2[3])/4*100)/100, Math.round(parseFloat(res3[3])/4*100)/100, Math.round(parseFloat(res4[3])/4*100)/100],
+                color: colors[3]
+            }
+        }],
+        browserData = [],
+        versionsData = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+
+    for (i = 0; i < dataLen; i += 1) {
+
+        browserData.push({
+            name: categories[i],
+            y: data[i].y,
+            color: data[i].color
+        });
+
+        drillDataLen = data[i].drilldown.data.length;
+        for (j = 0; j < drillDataLen; j += 1) {
+            brightness = 0.2 - (j / drillDataLen) / 5;
+            versionsData.push({
+                name: data[i].drilldown.categories[j],
+                y: data[i].drilldown.data[j],
+                color: Highcharts.Color(data[i].color).brighten(brightness).get()
+            });
+        }
+    }
+
+    $('#container1').highcharts({
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Play Type by Down'
+        },
+        yAxis: {
+            title: {
+                text: subText
+            }
+        },
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%']
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        series: [{
+            name: 'Play Types',
+            data: browserData,
+            size: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 5 ? this.point.name : null;
+                },
+                color: 'white',
+                distance: -30
+            }
+        }, {
+            name: 'Down',
+            data: versionsData,
+            size: '80%',
+            innerSize: '60%',
+            dataLabels: {
+                formatter: function () {
+                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                }
+            }
+        }]
     });
 });
 
