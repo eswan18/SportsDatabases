@@ -37,29 +37,26 @@ require('navigation.php')
             or die ("Failed Connection");
 	  
 	  $play=strtoupper($_POST['play_desc']);
-	  $team=strtoupper($_POST['team_name']);
-
+	  $off_team=$_POST['off_team'];
+	  $def_team=$_POST['def_team'];
 	  //preg_replace("/[^a-z]/", '', $play);
 	  //preg_replace("/[^a-z]/", '', $team);
 
 	  $play=trim($play);
-	  $team=trim($team);
-          
-	  if ($play && $team) {
-	    $stmt = 'select * from plays where offense_team like \'%' . $team . '%\' and description like \'%' . $play . '%\'';
+	  $off_team=trim($off_team);
+	  $def_team=trim($def_team);
+         
+	print "<p> $off_team . $def_team . $play </p>";
+ 
+	  if ($play && $off_team && $def_team) {
+print "<p> here </p>";	
+	    $stmt = 'select ot.day, ot.quarter, ot.team, dt.nickname, ot.play from ( select t.city as city, t.nickname as team, p.description as play, p.defense_team as defense, p.game_date as day, p.quarter as quarter from ( select * from teams where city like \'%' . $off_team . '%\' or nickname like \'%' . $off_team . '%\') t left outer join plays p on p.offense_team = t.team_name) ot right outer join ( select * from teams where city like \'%' . $def_team . '%\' or nickname like \'%' . $def_team . '%\') dt on ot.defense = dt.team_name where ot.play like \'%' . $play . '%\'';
+
+
+//    $stmt = 'select * from plays where offense_team like \'%' . $team . '%\' and description like \'%' . $play . '%\'';
 	    $query = oci_parse($conn, $stmt);
 	    oci_execute($query);
 	  }
-
-          //      print "<p> HERE $play $team</p>";
-	//	print "<p> $stmt </p>";
-	//  $row = oci_fetch_array($query, OCI_ASSOC+OCI_RETURN_NULLS);
-	//  print $row;
-	 //$row=[];
-	  
-//	$nrows = oci_fetch_all($query, $res);
-//	echo "<p> $nrows </p>";
-	//var_dump($res);
 
 	while ($row=oci_fetch_array($query)) {
 		print "<tr><td>Date: </td><td>$row[1]</td></tr><br>";
@@ -68,29 +65,6 @@ require('navigation.php')
 		print "<tr><td>Description: </td><td>$row[12]</td></tr><br>";
 		print "<br><br>";
 	  }
-	//$tablesHtml = "";
-          /*while ($row = oci_fetch_array($query, OCI_ASSOC+OCI_RETURN_NULLS)) {
-            foreach ($row as $item) {
-              echo "<td><a class = \"table_selector\" id = \"" . $item . "\">" . $item . "</a></td>";
-              $tablesHtml .= "<div class=\"panel\" id = \"" . $item . "_table\" style = \"display:none\">";
-              $tablesHtml .= $item;
-              $tableQuery = oci_parse($conn, 'SELECT * FROM ' . $item . ' WHERE ROWNUM < 200');
-              oci_execute($tableQuery);
-              $tablesHtml .= "<table>";
-              while ($row2 = oci_fetch_array($tableQuery, OCI_ASSOC+OCI_RETURN_NULLS)) {
-                $trimmedRow = array_slice($row2, 0, 10);
-                foreach ($trimmedRow as $item2)
-                {
-                  $tablesHtml .= "<td>" . $item2 . "</td>";
-                }
-                $tablesHtml .= "<tr>";
-              }
-              $tablesHtml .= "</table></div>";
-            }
-            echo "<tr>";
-          }
-          echo "</table>";
-*/
 	?>
       </div>
       <?php

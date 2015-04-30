@@ -22,7 +22,8 @@ require('navigation.php')
     <div class="large-12 columns">
       <center>
         <h1><img src="images/football_silhouette.png" style="height:30px;">&nbsp;Game Situations</h1>
-      </center>
+      Time is expiring. Which play should you choose? Different plays have different rates of success at given points in the game. Find the best play for your team right now!
+	</center>
     </div>
   </div>
 

@@ -7,8 +7,9 @@
   <meta name="viewport" content=
   "width=device-width, initial-scale=1.0">
 
-  <title>Portal</title>
+  <title>The Playmaker</title>
   <link rel="stylesheet" href="stylesheets/app.css" type="text/css">
+
   <script src="bower_components/modernizr/modernizr.js" type=
   "text/javascript">
 </script>
@@ -19,19 +20,20 @@
   <div class="row">
     <div class="large-12 columns">
       <center>
-        <h1>Football Site Index</h1>
+        <h1>The Playmaker</h1>
       </center>
     </div>
   </div>
   <div class="row">
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
-	<a href="display.php">View Tables</a>
+      <left>
+	<h2> Welcome to Our Site </h2>
+	How would you call the plays for your favorite NFL team? Take a look behind the numbers of the 2014-2015 NFL season and discover game scenarios, passing and rushing statistics, and even a favorite team calculator.  
 	<br>
-	<a href="pass_yards.php">Passing Metrics</a>
-	<br>
-	<a href="rush_yards.php">Rushing Metrics</a>
-      </div>
+	</left>
+	<center><b>Every Play. Every Game. The Playmaker. </b></center> 
+	</div>
     </div>
   </div><script src="bower_components/jquery/dist/jquery.min.js" type=
   "text/javascript">

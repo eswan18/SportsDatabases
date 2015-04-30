@@ -31,8 +31,10 @@ require('navigation.php')
       <div class="panel">
 	<?php
 	  
-	  echo "Search by team: ";
-	  echo "<form action=\"select_query.php\" method=\"POST\"><input type =\"text\" name=\"team_name\" placeholder=\"Please enter a team\">";
+	  echo "Search by offense team: ";
+	  echo "<form action=\"select_query.php\" method=\"POST\"><input type =\"text\" name=\"off_team\" placeholder=\"Please enter an offense team\">";
+	  echo "Search by defense team: ";
+	  echo "<input type=\"text\" name=\"def_team\" placeholder=\"Please enter a defense team\">";
 	  echo "Search by play description: ";
 	  echo "<input type =\"text\" name=\"play_desc\" placeholder=\"Please enter a play description\">";
 	  echo "<input class=\"small button\" type=\"submit\" name=\"submit1\"> </form>"

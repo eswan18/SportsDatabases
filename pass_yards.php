@@ -22,11 +22,11 @@ require('navigation.php')
     <div class="large-12 columns">
       <center>
         <h1>Passing Metrics</h1>
-      </center>
     </div>
   </div>
-
-  <div class="row">
+The crowd loves a big passing play.  Use this tool to find which are the most likely to end in a score.
+  </center>
+	<div class="row">
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
 	<?php

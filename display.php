@@ -39,7 +39,7 @@ require('navigation.php')
 	  oci_execute($stid);
 	  
 	  $tablesHtml = "";
-	  echo "Welcome to the table interface.<br><br>";
+	  echo "Get a view of the data behind the scenes. Select a table to view it.<br><br>";
 	  echo "These are the tables available to you:<br>";
 	  echo "<table style = \"width:100%;\">";
 	  while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {

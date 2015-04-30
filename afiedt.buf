@@ -1,2 +1,3 @@
-Select PASS_DIF, OFF_DIF, WIN_DIF, TEAM, abs(PASS_DIF)+abs(OFF_DIF)+abs(WIN_DIF) as TOTAL_DIF, CITY, NICKNAME from ( Select PASS_PCT-50 as PASS_DIF, TEAM, CITY, NICKNAME, OFF_FOCUS-50 as OFF_DIF, WIN_PCT-50 as WIN_DIF from ( Select P.OFFENSE_TEAM as TEAM, round((PASS_COUNT/(PASS_COUNT+RUSH_COUNT)*100)) as PASS_PCT, round((WIN/(LOSE+WIN))*100) as WIN_PCT, round(((DEFENSE_RANK-OFFENSE_RANK)/32*50)+50) as OFF_FOCUS, CITY, NICKNAME from ( Select OFFENSE_TEAM, count(*) as PASS_COUNT from plays where IS_PASS = 1 group by OFFENSE_TEAM ) P, ( Select OFFENSE_TEAM, count(*) as RUSH_COUNT from plays where IS_RUSH = 1 group by OFFENSE_TEAM ) R, teams T, team_efficiency TE where P.OFFENSE_TEAM = R.OFFENSE_TEAM and T.TEAM_NAME = P.OFFENSE_TEAM and T.TEAM_NAME = TE.TEAM ) ) order by TOTAL_DIF asc, WIN_DIF asc
+select * from ( select * from teams where city like '%Dallas%' or nickname like '%Dallas%' ) outer join plays on
+
 /
