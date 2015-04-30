@@ -26,9 +26,11 @@ require('navigation.php')
       </center>
     </div>
   </div>
-
   <div class="row">
     <div class="large-12 columns">
+      <center>
+	Perhaps you've always been a fan of the hometown team.  There may be another team that is better suited to your interests in the game! Use this picker to find the top teams whose tendencies align with your interests.
+      </center>
       <div class="panel" id="panel1">
         <center><h3>Run/Pass Ratio</h3></center>
 	<div class="row">

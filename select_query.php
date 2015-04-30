@@ -30,6 +30,9 @@ require('navigation.php')
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
         <?php
+		
+	  echo "<form action=\"select.php\"><input class=\"small button\" type=\"submit\" value=\"Go Back\"></form>";
+
           $user = "lcronin";
           $password = "lcronin";
           $connString = "xe";
@@ -45,6 +48,9 @@ require('navigation.php')
 	  $play=trim($play);
 	  $off_team=trim($off_team);
 	  $def_team=trim($def_team);
+
+	  if ($play == 'INTERCEPTION') $play= 'INTERCEPT';
+	  if ($play == 'KICKOFF' || $play == 'KICK OFF') $play='KICK';
 
 	  function team_name($a) {
 	    switch ($a) {
@@ -192,7 +198,7 @@ require('navigation.php')
 		case 'WASHINGTON REDSKINS':
 		  return 'Washington';
 		default:
-		  return '';
+		  return $a;
 	    }
 	  }
  
@@ -200,7 +206,7 @@ require('navigation.php')
 	  $off_team=team_name($off_team);
 	  $def_team=team_name($def_team);
 
-	print "<p> $off_team . $def_team . $play </p>";
+	//print "<p> $off_team . $def_team . $play </p>";
  
 	  if ($play && $off_team && $def_team) {
 	    $stmt = 'select ot.day, ot.quarter, ot.team, dt.nickname, ot.play from ( select t.city as city, t.nickname as team, p.description as play, p.defense_team as defense, p.game_date as day, p.quarter as quarter from ( select * from teams where city like \'%' . $off_team . '%\' or nickname like \'%' . $off_team . '%\') t left outer join plays p on p.offense_team = t.team_name) ot right outer join ( select * from teams where city like \'%' . $def_team . '%\' or nickname like \'%' . $def_team . '%\') dt on ot.defense = dt.team_name where ot.play like \'%' . $play . '%\'';
@@ -223,8 +229,9 @@ require('navigation.php')
 	  $query = oci_parse($conn, $stmt);
 	  oci_execute($query);
 
-
+	$count =true;
 	while ($row=oci_fetch_array($query)) {
+		$count= false;
 		print "<tr><td>Date: </td><td>$row[0]</td></tr><br>";
 		print "<tr><td>Quarter: </td><td>$row[1]</td></tr><br>";
 		print "<tr><td>Offense: </td><td>$row[2]</td></tr><br>";
@@ -232,6 +239,14 @@ require('navigation.php')
 		print "<tr><td>Description: </td><td>$row[4]</td></tr><br>";
 		print "<br><br>";
 	  }
+
+	if ($count) {
+	  $off_team = strtolower($off_team);
+	  $def_team = strtolower($def_team);
+	  $play =strtolower($play);
+	  print "<p> Sorry!  Nothing matched your search for $off_team $def_team $play.  Please try again!";
+	}	
+
 	?>
       </div>
       <?php

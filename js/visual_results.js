@@ -18,25 +18,28 @@ $(function () {
 	var startPos = 'Own'
 	var endPos = 'Own'
 
-	if(res1[6] > 50) {
-		res1[6] = 50-(res1[6]%50);
-		startPos = "Opponent's";
-	} else if(res1[6] == 50) {
-		startPos = 'the';
-	}
-
-	if(res1[7] > 50) {
-		res1[7] = 50-(res1[7]%50);
-		endPos = "Opponent's";
-	} else if(res1[7] == 50) {
-		endPos == 'the';
-	}
-
-	var subtext = '';
+	var subText = '';
 	if(res1[6] == res1[7]) {
+		if(res1[6] > 50) {
+			res1[6] = 50-(res1[6]%50);
+			startPos = "Opponent's";
+		} else if(res1[6] == 50) {
+			startPos = 'the';
+		}	
 		subText = 'Plays at ' +startPos +' ' +res1[6];
-	}
-	else {
+	} else {
+		if(res1[6] > 50) {
+			res1[6] = 50-(res1[6]%50);
+			startPos = "Opponent's";
+		} else if(res1[6] == 50) {
+			startPos = 'the';
+		}
+		if(res1[7] > 50) {
+			res1[7] = 50-(res1[7]%50);
+			endPos = "Opponent's";
+		} else if(res1[7] == 50) {
+			endPos == 'the';
+		}
 		subText = 'Plays between ' +startPos +' ' +res1[6] +' and ' +endPos +' ' +res1[7] 
 	}
 
@@ -55,7 +58,7 @@ $(function () {
             categories: [
                 'Pass',
                 'Rush',
-                'FG Taken',
+                'FG Attempted',
                 'Other',
                 'FG Made',
                 'TD Scored'

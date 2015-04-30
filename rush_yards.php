@@ -21,9 +21,9 @@ require('navigation.php')
 <div class="large-12 columns">
 <center>
 <h1>Rushing Metrics</h1>
-</div>
-</div>
 </center>
+</div>
+</div>
 <center>
 Can he cross the plane? Find which rushing plays are most likely to gain a TD by selecting a play type below.
 </center>

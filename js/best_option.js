@@ -7,3 +7,8 @@ $(":checkbox").click(function(){
   else
     $("#" + $selector_id).hide();
 });
+
+$(":radio").click(function(){
+  alert($("go_button").html);
+  $("#go_button").removeAttr("disabled");
+});

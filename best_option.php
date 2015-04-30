@@ -72,15 +72,16 @@ require('navigation.php')
 	    </select>
 	  </div>
 	  <div class="large-2 columns">
-	    <h4 style="display:inline-block;">Goal</h4>
-	    <select id="down_selector" style="display:none;">
-	      <option value = 1>First Down</option>
-	      <option value = 2>Touchdown</option>
-	    </select>
+	    <h4>Goal</h4>
+	      <input type="radio" name="goal" value = "first_down"> First Down<br>
+	      <input type="radio" name="goal" value = "touchdown"> Touchdown<br>
+	  </div>
+	  <div class="large-4 columns">
+	    <a class="expand button disabled" id="go_button">Go!</a>
 	  </div>
 	</div>
       </div>
-      <div class="panel" id="panel2">
+      <div class="panel" id="panel2" style="display:none;">
 	<h3>Direction</h3>
       </div>
     </div>
