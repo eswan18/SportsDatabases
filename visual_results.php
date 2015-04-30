@@ -30,8 +30,7 @@ require('navigation.php')
   <div class="row">
     <div class="large-10 large-offset-1 columns">
       <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-      <div class="panel">
-	<p>Place main text here</p>
+<!--      <div class="panel"> -->
 	<?php
 		$user = "lcronin";
 		$password = "lcronin";
@@ -141,7 +140,7 @@ require('navigation.php')
 				"' id='percentages" .$i. "' />";
 		}
 	?>
-      </div>
+<!--      </div> -->
       <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
   </div>

@@ -36,18 +36,9 @@ $("#go_button").click(function(){
       data["goal"] = "first_down";
     else
       data["goal"] = "touchdown";
-    $.redirectPost("http://www.google.com",data);
+    $.post("best_option_form.php", data, function(result) {
+      $("#panel2").show();
+      $("#panel2").html(result);
+    });
   }
-});
-
-$.extend(
-{
-    redirectPost: function(location, args)
-    {
-        var form = '';
-        $.each( args, function( key, value ) {
-            form += '<input type="hidden" name="'+key+'" value="'+value+'">';
-        });
-        $('<form action="'+location+'" method="POST">'+form+'</form>').appendTo('body').submit();
-    }
 });

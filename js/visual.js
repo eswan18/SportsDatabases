@@ -31,6 +31,45 @@ var testNum = 0;
 $('[data-slider]').on('change.fndtn.slider', function(){
 var pos1 = $('#days-off-count1').val();
 var pos2 = $('#days-off-count2').val();
+
+// -- Title -- //
+var yardsHi = parseInt(pos1);
+var yardsLo = parseInt(pos2);
+
+if(yardsHi < yardsLo) {
+	yardsHi = parseInt(pos2);
+	yardsLo = parseInt(pos1);
+}
+
+	var startPos = 'Own'
+        var endPos = 'Own'
+
+        var subText = '';
+        if(yardsHi == yardsLo) {
+                if(yardsLo > 50) {
+                        yardsLo = 50-(yardsLo%50);
+                        startPos = "Opponent's";
+                } else if(yardsLo == 50) {
+                        startPos = 'the';
+                }
+                subText = 'Plays at ' +startPos +' ' +yardsLo;
+        } else {
+                if(yardsLo > 50) {
+                        yardsLo = 50-(yardsLo%50);
+                        startPos = "Opponent's";
+                } else if(yardsLo == 50) {
+                        startPos = 'the';
+                }
+                if(yardsHi > 50) {
+                        yardsHi = 50-(yardsHi%50);
+                        endPos = "Opponent's";
+                } else if(yardsHi == 50) {
+                        endPos == 'the';
+                }
+                subText = 'Plays between ' +startPos +' ' +yardsLo +' and ' +endPos +' ' +yardsHi
+        }
+// -- End Title -- //
+
 var img = new Image();
 
 img.src = "http://www.wpclipart.com/recreation/sports/football/football_2/football_field.png";
@@ -62,6 +101,10 @@ c.height = scale*c.width;
 
 	ctx.strokeStyle = '#00008B';
 	ctx.stroke();
+
+
+ document.getElementById("subText").innerHTML = subText;
+
 });
 
 

@@ -26,14 +26,16 @@ require('navigation.php')
       </center>
     </div>
   </div>
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
 <center>
 Set up the play! Select a zone on the field with the sliders below and see which plays and outcomes are most successful from that zone.
 </center>
-  <div class="row">
-    <div class="large-10 large-offset-1 columns">
       <div class="panel">
 <!-- Begin Form -->
 	<form action="visual_results.php" method="post">
+
+	<center><p id='subText'>Location:</p></center>
 	<canvas style="width:100%;" id="myCanvas">Your Browser Does not Support canvas tag</canvas>
 
 	<!-- Slider 1 -->
@@ -61,7 +63,7 @@ Set up the play! Select a zone on the field with the sliders below and see which
 	    <input type="number" id="days-off-count2" name="yards2" value="20" readonly />
 	  </div>
 	</div>	
-		<center><input class="small button" type="submit" name="submit1"/>
+		<center><input class="small button" type="submit" name="submit1"/></center>
 	</form>
 <!-- End Form -->
       </div>
