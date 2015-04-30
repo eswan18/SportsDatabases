@@ -49,6 +49,22 @@ require('navigation.php')
 	  $off_team=trim($off_team);
 	  $def_team=trim($def_team);
 
+	  $play=str_replace("'", '', $play);
+	  $play=str_replace('"', '', $play);
+	  $play=str_replace('*', '', $play);
+	  $play=str_replace('=', '', $play);
+
+	  $off_team=str_replace("'", '', $off_team);
+	  $off_team=str_replace('"', '', $off_team);
+	  $off_team=str_replace('*', '', $off_team);
+	  $off_team=str_replace('=', '', $off_team);
+
+	  $def_team=str_replace("'", '', $def_team);
+	  $def_team=str_replace('"', '', $def_team);
+	  $def_team=str_replace('*', '', $def_team);
+	  $def_team=str_replace('=', '', $def_team);
+
+
 	  if ($play == 'INTERCEPTION') $play= 'INTERCEPT';
 	  if ($play == 'KICKOFF' || $play == 'KICK OFF') $play='KICK';
 
@@ -58,6 +74,7 @@ require('navigation.php')
 		case 'CARDINALS':
 		case 'ARIZONA CARDINALS':
 		case 'CARDS':
+		case 'ARIZONA CARDS':
 		  return 'Arizona';
 		case 'ATLANTA':
 		case 'FALCONS':
@@ -180,10 +197,12 @@ require('navigation.php')
 		case 'SEATTLE SEAHAWKS':
 		  return 'Seattle';
 		case 'ST LOUIS':
-		case 'CARDINALS':
-		case 'ST LOUIS CARDINALS':
-		case 'CARDS':
-		  return 'Cardinals';
+		case 'RAMS':
+		case 'ST. LOUIS RAMS':
+		case 'ST. LOUIS':
+		case 'ST LOUIS RAMS':
+		case 'RAMS':
+		  return 'Rams';
 		case 'TAMPA BAY':
 		case 'TAMPA BAY BUCCANEERS':
 		case 'BUCCANEERS':

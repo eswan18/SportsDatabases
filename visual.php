@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content=
   "width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="football.ico">
 
   <title>Field Visualization</title>
   <link rel="stylesheet" href="stylesheets/app.css" type="text/css">
@@ -25,7 +26,9 @@ require('navigation.php')
       </center>
     </div>
   </div>
-
+<center>
+Set up the play! Select a zone on the field with the sliders below and see which plays and outcomes are most successful from that zone.
+</center>
   <div class="row">
     <div class="large-10 large-offset-1 columns">
       <div class="panel">

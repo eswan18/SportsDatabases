@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content=
   "width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="football.ico">
 
   <title>Search by Team</title>
   <link rel="stylesheet" href="stylesheets/app.css" type="text/css">
@@ -21,11 +22,13 @@ require('navigation.php')
   <div class="row">
     <div class="large-12 columns">
       <center>
-        <h1>View Tables</h1>
+        <h1>Search the Database</h1>
       </center>
     </div>
   </div>
-
+<center>
+Search through plays data for selected teams and matchups.
+</center>
   <div class="row">
     <div class="large-10 large-offset-1 columns">
       <div class="panel">

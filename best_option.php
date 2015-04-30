@@ -73,8 +73,8 @@ require('navigation.php')
 	  </div>
 	  <div class="large-2 columns">
 	    <h4>Goal</h4>
-	      <input type="radio" name="goal" value = "first_down"> First Down<br>
-	      <input type="radio" name="goal" value = "touchdown"> Touchdown<br>
+	      <input type="radio" name="goal" value = "first_down" id="first_down_checkbox"> First Down<br>
+	      <input type="radio" name="goal" value = "touchdown" id="touchdown_checkbox"> Touchdown<br>
 	  </div>
 	  <div class="large-4 columns">
 	    <a class="expand button disabled" id="go_button">Go!</a>

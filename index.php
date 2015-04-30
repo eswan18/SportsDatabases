@@ -9,7 +9,7 @@
 
   <title>The Playmaker</title>
   <link rel="stylesheet" href="stylesheets/app.css" type="text/css">
-
+<link rel="shortcut icon" href="football.ico">
   <script src="bower_components/modernizr/modernizr.js" type=
   "text/javascript">
 </script>
@@ -28,7 +28,6 @@
     <div class="large-10 large-offset-1 columns">
       <div class="panel">
       <left>
-	<h2> Welcome to Our Site </h2>
 	How would you call the plays for your favorite NFL team? Take a look behind the numbers of the 2014-2015 NFL season and discover game scenarios, passing and rushing statistics, and even a favorite team calculator.  
 	<br>
 	</left>

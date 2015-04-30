@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content=
   "width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="football.ico">
 
   <title>Field Visualization</title>
   <link rel="stylesheet" href="stylesheets/app.css" type="text/css">

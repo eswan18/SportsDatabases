@@ -22,6 +22,10 @@
     $user_def = 100 - $user_off;
     $user_win = $_POST['win'];
 
+    #Prevent bad post data
+    if (!is_numeric($user_pass) || !is_numeric($user_off) || !is_numeric($user_def))
+      die ("Bad posted data");
+
     #Connect to sql:
     $user = "lcronin";
     $password = "lcronin";
@@ -29,7 +33,7 @@
     $conn = oci_connect($user,$password,$conn_string)
       or die ("Failed Connection");
 
-    #This particular beauty of a query combines the team info table, the
+    #This particular beauty of a gem combines the team info table, the
     #the team efficiency table, and the plays table to create a table of
     #Team Name, Total Passes, Total Rushes, Offensive Rank, Defensive Rank,
     #Wins, and Losses. Then that table is transformed into a table that

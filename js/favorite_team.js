@@ -1,3 +1,4 @@
+//On clicking the go button:
 $("#find_team_button").click(function(){
   $run_pass = $("#runPassOutput").text();
   $off_def = $("#defenseOffenseOutput").text();
